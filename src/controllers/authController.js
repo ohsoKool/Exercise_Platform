@@ -9,7 +9,9 @@ export const register = async (req, res) => {
       where: { email: email },
     });
     if (user) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({
+        message: "Duplicate Email, A user with this email already exists!",
+      });
     }
     if (
       !name ||
@@ -44,11 +46,13 @@ export const register = async (req, res) => {
         password: hashedPassword,
       },
     });
-
+    console.log("Registration successful!!");
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Something went wrong while registering" });
   }
 };
 
