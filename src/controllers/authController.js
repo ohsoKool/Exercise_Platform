@@ -27,7 +27,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
     const passwordConstraint =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/;
 
     if (!passwordConstraint.test(password)) {
       return res.status(400).json({
@@ -68,8 +68,9 @@ export const login = async (req, res) => {
     if (!compareSync(password, user.password)) {
       return res.status(400).json({ message: "Invalid password" });
     }
-    console.log("Login successful, redirecting...");
-    return res.redirect("/dashboard.html");
+    return res
+      .json({ message: "Login Successful! Redirecting..." })
+      .redirect("/dashboard.html");
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Failed to login!" });
