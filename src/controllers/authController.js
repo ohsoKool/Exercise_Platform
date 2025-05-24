@@ -1,5 +1,6 @@
 import { db } from "../utils/user.db.js";
 import { hash, compareSync } from "bcrypt";
+import { tokenCreation } from "../utils/tokenHandler.js";
 
 export const register = async (req, res) => {
   try {
@@ -46,7 +47,16 @@ export const register = async (req, res) => {
         password: hashedPassword,
       },
     });
-    console.log("Registration successful!!");
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    };
+    tokenCreation(user, res);
+
+    console.log(
+      "Registration successful!! and Tokens have been successfully created"
+    );
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.log(error);
@@ -68,9 +78,10 @@ export const login = async (req, res) => {
     if (!compareSync(password, user.password)) {
       return res.status(400).json({ message: "Invalid password" });
     }
-    return res
-      .json({ message: "Login Successful! Redirecting..." })
-      .redirect("/dashboard.html");
+    tokenCreation(user, res);
+    console.log("Login successfuly! Redirecting...");
+
+    return res.redirect("/dashboard.html");
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Failed to login!" });
