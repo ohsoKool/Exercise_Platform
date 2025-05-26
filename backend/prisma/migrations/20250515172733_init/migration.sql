@@ -6,7 +6,6 @@ CREATE TABLE "User" (
     "mobile_number" TEXT,
     "gender" TEXT,
     "password" TEXT,
-    "confirm_password" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
