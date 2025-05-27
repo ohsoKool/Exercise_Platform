@@ -5,7 +5,7 @@ export const tokenCreation = (user, res) => {
     name: user.name,
   };
   const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN, {
-    expiresIn: "30s", // reduced for testing
+    expiresIn: "15m",
   });
   const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_TOKEN, {
     expiresIn: "7d",
@@ -13,7 +13,7 @@ export const tokenCreation = (user, res) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: false,
-    maxAge: 30 * 1000, //30 seconds for testing purposes
+    maxAge: 15 * 60 * 1000,
     sameSite: "lax",
   });
   res.cookie("refreshToken", refreshToken, {
