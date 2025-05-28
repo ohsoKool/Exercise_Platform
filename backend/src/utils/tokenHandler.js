@@ -12,14 +12,14 @@ export const tokenCreation = (user, res) => {
   });
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     maxAge: 15 * 60 * 1000,
     sameSite: "lax",
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false,
-    maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
+    secure: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     sameSite: "lax",
   });
   console.log("Tokens have been successfully created");

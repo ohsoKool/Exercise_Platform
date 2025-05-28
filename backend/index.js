@@ -1,16 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
-import { authRouter } from "./routes/authRouter.js";
-import { tokenRouter } from "./routes/tokenRouter.js";
+import { authRouter } from "./src/routes/authRouter.js";
+import { tokenRouter } from "./src/routes/tokenRouter.js";
 import cookieParser from "cookie-parser";
-import { tokenVerification } from "./utils/tokenHandler.js";
-import { logoutRouter } from "./routes/logoutRouter.js";
-import { exerciseRouter } from "./routes/exerciseRouter.js";
+import { tokenVerification } from "./src/utils/tokenHandler.js";
+import { logoutRouter } from "./src/routes/logoutRouter.js";
+import { exerciseRouter } from "./src/routes/exerciseRouter.js";
 import cors from "cors";
 import {
   getUserProgress,
   saveOrCompleteExercise,
-} from "./controllers/progressController.js";
+} from "./src/controllers/progressController.js";
 
 dotenv.config();
 const app = express();
