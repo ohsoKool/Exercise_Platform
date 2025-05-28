@@ -30,7 +30,7 @@ app.use(express.static("public"));
 
 // ===== ROUTES =====
 // Public or protected routes with proper middleware
-app.get("/", tokenVerification, (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to the / route!");
 });
 
