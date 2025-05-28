@@ -39,14 +39,19 @@ A RESTful API backend for managing coding exercises, user progress tracking, and
 
 ```bash
 git clone https://github.com/yourusername/exercises-backend.git
-cd exercises-backend
+cd backend
 ```
 
 2. After cloning the repository, install the project dependencies using your preferred package manager (npm or yarn). This will set up all required packages.
 
-3. The project requires environment variables to run properly. Create a `.env` file in the root directory and include the necessary keys such as your database connection URL, JWT secret keys for access and refresh tokens, the server port, and the allowed CORS origin. This setup allows the app to connect to your database securely and manage authentication tokens.
+3. ```bash
+   npm install
+   npx prisma generate
+   ```
 
-4. Once dependencies are installed and the environment variables are configured, start the server using `npm start` or `node index.js`. The backend will establish a connection with the database through Prisma ORM and serve your API endpoints.
+4. The project requires environment variables to run properly. Create a `.env` file in the root directory and include the necessary keys such as your database connection URL, JWT secret keys for access and refresh tokens, the server port, and the allowed CORS origin. This setup allows the app to connect to your database securely and manage authentication tokens.
+
+5. Once dependencies are installed and the environment variables are configured, start the server using `node index.js`. The backend will establish a connection with the database through Prisma ORM and serve your API endpoints.
 
 ### Team Members
 
