@@ -1,15 +1,17 @@
 import { db } from "../utils/user.db.js";
 
+// Fetch list of all exercises (only their id and title for listing)
 export const getAllExercises = async (req, res) => {
   try {
     const exercises = await db.exercise.findMany({
       select: {
         id: true,
         title: true,
-        description: false,
-        starterCode: false,
+        description: false, // excluded to avoid sending full content in list view
+        starterCode: false, // excluded for same reason
       },
     });
+
     return res
       .status(200)
       .json({ message: "All exercises fetched successfully", exercises });
@@ -20,9 +22,11 @@ export const getAllExercises = async (req, res) => {
   }
 };
 
+// Fetch a specific exercise by ID with full details
 export const getExercise = async (req, res) => {
   try {
     const { id } = req.params;
+
     const exercise = await db.exercise.findUnique({
       where: { id: id },
       select: {
@@ -31,9 +35,11 @@ export const getExercise = async (req, res) => {
         starterCode: true,
       },
     });
+
     if (!exercise) {
       return res.status(404).json({ message: "Exercise not found" });
     }
+
     return res.status(200).json({
       message: "Exercise fetched successfully",
       exercise,

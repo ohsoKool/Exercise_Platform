@@ -6,14 +6,17 @@ export const register = async (req, res) => {
   try {
     const { name, email, mobile_number, gender, password, confirm_password } =
       req.body;
+
     let user = await db.user.findFirst({
       where: { email: email },
     });
+
     if (user) {
       return res.status(400).json({
         message: "Duplicate Email, A user with this email already exists!",
       });
     }
+
     if (
       !name ||
       !email ||
@@ -24,9 +27,11 @@ export const register = async (req, res) => {
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
+
     if (password !== confirm_password) {
       return res.status(400).json({ message: "Passwords do not match" });
     }
+
     const passwordConstraint =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/;
 
@@ -37,7 +42,9 @@ export const register = async (req, res) => {
       });
     }
 
+    // Securely hash the password before saving
     const hashedPassword = await hash(password, 10);
+
     user = await db.user.create({
       data: {
         name,
@@ -47,6 +54,8 @@ export const register = async (req, res) => {
         password: hashedPassword,
       },
     });
+
+    // by giving id,email and name to the payload , I'm assigning tokens
     const payload = {
       id: user.id,
       email: user.email,
@@ -69,18 +78,23 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     let user = await db.user.findFirst({
       where: { email },
     });
+
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
+
+    // Compare plaintext password with hashed password stored in DB
     if (!compareSync(password, user.password)) {
       return res.status(400).json({ message: "Invalid password" });
     }
-    tokenCreation(user, res);
-    console.log("Login successfuly! Redirecting...");
 
+    tokenCreation(user, res);
+
+    console.log("Login successfuly! Redirecting...");
     return res.redirect("/dashboard.html");
   } catch (error) {
     console.log(error);
