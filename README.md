@@ -53,7 +53,3 @@ cd backend
 
 5. Once dependencies are installed and the environment variables are configured, start the server using `node index.js`. The backend will establish a connection with the database through Prisma ORM and serve your API endpoints.
 
-### Team Members
-
-- G.Rishikesh
-- Sai Sathwik
