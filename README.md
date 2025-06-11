@@ -38,7 +38,7 @@ A RESTful API backend for managing coding exercises, user progress tracking, and
 1. Clone the repo
 
 ```bash
-git clone https://github.com/ohsoKool/Exercise_Platform
+git clone https://github.com/ohsoKool/SecureSlate.git
 cd backend
 ```
 
